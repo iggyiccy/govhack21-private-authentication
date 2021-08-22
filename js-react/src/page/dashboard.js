@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Redirect } from "react-router-dom";
 import QrReader from "react-qr-reader";
 import { withStyles } from "@material-ui/core/styles";
@@ -10,6 +10,14 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
+import ReactMapboxGl, { Layer, Feature, Marker } from "react-mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+
+const Map = ReactMapboxGl({
+  accessToken:
+    "pk.eyJ1IjoiaWdneWljY3kiLCJhIjoiY2tzbXFuMDJpMWg5cjJwb3hoamQzOHNzZCJ9.qM8kIpaIzNyEPKZl23pK3w",
+});
 
 const styled = withStyles((theme) => ({
   root: {
@@ -99,6 +107,34 @@ const DashboardPage = (props) => {
             ))}
           </TableBody>
         </Table>
+      </Paper>
+      <Paper className={props.classes.paper}>
+        <Typography variant="h5">Current COVID Cases</Typography>
+        <Link
+          component="button"
+          variant="body2"
+          onClick={() => {
+            console.info("Redirect to Data.vic dataset");
+          }}
+        >
+          https://discover.data.vic.gov.au/dataset/all-victorian-sars-cov-2-covid-19-current-exposure-sites
+        </Link>
+        <Map
+          // eslint-disable-next-line
+          style="mapbox://styles/mapbox/streets-v9"
+          containerStyle={{
+            height: "50vh",
+            width: "100%",
+          }}
+        >
+          <Layer type="symbol">
+            <Feature coordinates={[144.9651149072606, -37.81593406906988]} />
+          </Layer>
+          <Marker
+            coordinates={[144.9651149072606, -37.81593406906988]}
+            anchor="bottom"
+          ></Marker>
+        </Map>
       </Paper>
     </div>
   );
