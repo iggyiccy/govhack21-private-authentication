@@ -1,0 +1,9 @@
+# npm
+node_modules
+db.sqlite3
+clojure-ring
+go
+js-node
+js-react-native
+ruby-rails
+.ruby-version
